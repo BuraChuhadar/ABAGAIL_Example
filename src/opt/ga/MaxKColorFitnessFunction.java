@@ -22,8 +22,26 @@ public class MaxKColorFitnessFunction implements EvaluationFunction {
     public MaxKColorFitnessFunction(Vertex[] vertices) {
         this.vertices = vertices;
         this.graphSize = vertices.length;
+        this.functionCallCount = 0;
     }
-    
+
+    private long functionCallCount;
+
+    /**
+     * @see opt.EvaluationFunction#getFunctionCallCount()
+     */
+    public long getFunctionCallCount()
+    {
+        return functionCallCount;
+    }
+    /**
+     * @see opt.EvaluationFunction#setFunctionCallCount(opt.value)
+     */
+    public void setFunctionCallCount(long value)
+    {
+        functionCallCount = value;
+    }
+
     private boolean conflict = false;
 
     /**
@@ -31,6 +49,7 @@ public class MaxKColorFitnessFunction implements EvaluationFunction {
      * Find how many iterations does it take to find if k-colors can be or can not be assigned to a given graph.
      */
     public double value(Instance d) {
+        functionCallCount++;
         Vector data = d.getData();
         int n = data.size();
         double iterations = 0;

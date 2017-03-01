@@ -10,10 +10,32 @@ import shared.Instance;
  * @version 1.0
  */
 public class FlipFlopEvaluationFunction implements EvaluationFunction {
+
+    private long functionCallCount;
+
+    public FlipFlopEvaluationFunction() {
+        this.functionCallCount = 0;
+    }
+
+    /**
+     * @see opt.EvaluationFunction#getFunctionCallCount()
+     */
+    public long getFunctionCallCount()
+    {
+        return functionCallCount;
+    }
+    /**
+     * @see opt.EvaluationFunction#setFunctionCallCount(opt.value)
+     */
+    public void setFunctionCallCount(long value)
+    {
+        functionCallCount = value;
+    }
     /**
      * @see opt.EvaluationFunction#value(opt.OptimizationData)
      */
     public double value(Instance d) {
+        functionCallCount++;
         Vector data = d.getData();
         double val = 0;
         for (int i = 0; i < data.size() - 1; i++) {

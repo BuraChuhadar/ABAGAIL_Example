@@ -16,4 +16,6 @@ public interface EvaluationFunction {
      */
     public abstract double value(Instance d);
 
+    public long getFunctionCallCount();
+    public void setFunctionCallCount(long value);
 }
