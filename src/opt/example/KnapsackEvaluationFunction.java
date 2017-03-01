@@ -48,12 +48,32 @@ public class KnapsackEvaluationFunction implements EvaluationFunction {
         for (int i = 0; i < weights.length; i++) {
             allItemsWeight += copiesPerElement[i] * weights[i];
         }
+        this.functionCallCount = 0;
+    }
+
+
+    private long functionCallCount;
+
+    /**
+     * @see opt.EvaluationFunction#getFunctionCallCount()
+     */
+    public long getFunctionCallCount()
+    {
+        return functionCallCount;
+    }
+    /**
+     * @see opt.EvaluationFunction#setFunctionCallCount(opt.value)
+     */
+    public void setFunctionCallCount(long value)
+    {
+        functionCallCount = value;
     }
 
     /**
      * Find the value of the knapsack with the given items.
      */
     public double value(Instance d) {
+        functionCallCount++;
         Vector entriesInKnapsack = d.getData();
         double weight = 0;
         double value = 0;

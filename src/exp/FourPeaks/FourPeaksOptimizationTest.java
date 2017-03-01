@@ -180,12 +180,12 @@ class Analyze_Optimization_Test implements Runnable {
                     break;
             }
             elapsedTime = System.currentTimeMillis() - start;
-
             results += "\n" +
                     "Problem: " + this.problem + "\n" +
                     "Algorithm: " + this.algorithm + "\n" +
                     "Time Elapse: " + elapsedTime +"\n"+
-                    "Optimal Value: " + optimal_value + "\n";
+                    "Optimal Value: " + optimal_value + "\n" +
+                    "Total function call " + ef.getFunctionCallCount();
             String final_result = "";
             final_result =
                     this.problem + "," +

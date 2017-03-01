@@ -18,12 +18,32 @@ public class TravelingSalesmanSortEvaluationFunction extends TravelingSalesmanEv
      */
     public TravelingSalesmanSortEvaluationFunction(double[][] points) {
         super(points);
+        this.functionCallCount = 0;
+    }
+
+
+    private long functionCallCount;
+
+    /**
+     * @see opt.EvaluationFunction#getFunctionCallCount()
+     */
+    public long getFunctionCallCount()
+    {
+        return functionCallCount;
+    }
+    /**
+     * @see opt.EvaluationFunction#setFunctionCallCount(opt.value)
+     */
+    public void setFunctionCallCount(long value)
+    {
+        functionCallCount = value;
     }
 
     /**
      * @see opt.EvaluationFunction#value(opt.OptimizationData)
      */
     public double value(Instance d) {
+        functionCallCount++;
         double[] ddata = new double[d.size()];
         for (int i = 0; i < ddata.length; i++) {
             ddata[i] = d.getContinuous(i);

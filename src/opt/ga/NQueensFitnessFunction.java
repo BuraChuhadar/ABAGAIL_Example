@@ -12,8 +12,26 @@ public class NQueensFitnessFunction implements EvaluationFunction {
 
 	public NQueensFitnessFunction() {
 		// TODO Auto-generated constructor stub
+        this.functionCallCount = 0;
 	}
-	
+
+    private long functionCallCount;
+
+    /**
+     * @see opt.EvaluationFunction#getFunctionCallCount()
+     */
+    public long getFunctionCallCount()
+    {
+        return functionCallCount;
+    }
+    /**
+     * @see opt.EvaluationFunction#setFunctionCallCount(opt.value)
+     */
+    public void setFunctionCallCount(long value)
+    {
+        functionCallCount = value;
+    }
+
 	private NQueensBoardGame currentBoard;
 
 	/**
@@ -21,6 +39,7 @@ public class NQueensFitnessFunction implements EvaluationFunction {
 	 * find the first solution
 	 */
 	public double value(Instance d) {
+        functionCallCount++;
 		double fitness = 0;
 
 		NQueensBoardGame board = getBoardForGivenInstance(d);

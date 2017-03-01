@@ -37,12 +37,31 @@ public class NeuralNetworkEvaluationFunction implements EvaluationFunction {
         this.network = network;
         this.examples = examples;
         this.measure = measure;
+        this.functionCallCount = 0;
+    }
+
+    private long functionCallCount;
+
+    /**
+     * @see opt.EvaluationFunction#getFunctionCallCount()
+     */
+    public long getFunctionCallCount()
+    {
+        return functionCallCount;
+    }
+    /**
+     * @see opt.EvaluationFunction#setFunctionCallCount(opt.value)
+     */
+    public void setFunctionCallCount(long value)
+    {
+        functionCallCount = value;
     }
 
     /**
      * @see opt.OptimizationProblem#value(opt.OptimizationData)
      */
     public double value(Instance d) {
+        functionCallCount++;
         // set the links
         Vector weights = d.getData();
         network.setWeights(weights);

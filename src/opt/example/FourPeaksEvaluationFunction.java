@@ -21,12 +21,32 @@ public class FourPeaksEvaluationFunction implements EvaluationFunction {
      */
     public FourPeaksEvaluationFunction(int t) {
         this.t = t;
+        this.functionCallCount = 0;
+    }
+
+    private long functionCallCount;
+
+    /**
+     * @see opt.EvaluationFunction#getFunctionCallCount()
+     */
+    public long getFunctionCallCount()
+    {
+        return functionCallCount;
+    }
+    /**
+     * @see opt.EvaluationFunction#setFunctionCallCount(opt.value)
+     */
+    public void setFunctionCallCount(long value)
+    {
+        functionCallCount = value;
     }
 
     /**
      * @see opt.EvaluationFunction#value(opt.OptimizationData)
      */
     public double value(Instance d) {
+
+        functionCallCount++;
         Vector data = d.getData();
         int i = 0;
         while (i < data.size() && data.get(i) == 1) {
