@@ -180,7 +180,8 @@ class Analyze_Optimization_Test implements Runnable {
                             this.N + "," +
                             this.iterations + "," +
                             this.run + "," +
-                            optimal_value;
+                            optimal_value + "," +
+                            elapsedTime;
             write_output_to_file(this.other_params.get("output_folder"), "final_results.csv", final_result, true);
             String file_name =
                     this.problem + "_" + this.algorithm + "_N_" + this.N +
