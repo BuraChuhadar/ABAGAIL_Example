@@ -193,7 +193,9 @@ class Analyze_Optimization_Test implements Runnable {
                             this.N + "," +
                             this.iterations + "," +
                             this.run + "," +
-                            optimal_value;
+                            ef.getFunctionCallCount() + "," +
+                            optimal_value + "," +
+                            elapsedTime;
             write_output_to_file(this.other_params.get("output_folder"), "final_results.csv", final_result, true);
             String file_name =
                     this.problem + "_" + this.algorithm + "_N_" + this.N +
@@ -224,7 +226,7 @@ public class FourPeaksOptimizationTest {
         other_params.put("output_folder","Optimization_Results");
         int num_runs = 10;
 
-        String[] algorithms = {"RHC", "SA", "GA"};
+        String[] algorithms = {"RHC", "SA", "GA", "MIMIC"};
 
         //Four Peaks Test
         HashMap<String, Object> four_peaks_test_params = new HashMap<>();

@@ -79,6 +79,7 @@ class Analyze_Optimization_Test implements Runnable {
     private int T;
     private ConcurrentHashMap<String, String> other_params;
     private int run;
+    private double globalOptima;
 
     Analyze_Optimization_Test(
             String problem,
@@ -88,7 +89,8 @@ class Analyze_Optimization_Test implements Runnable {
             int N,
             int T,
             ConcurrentHashMap<String, String> other_params,
-            int run
+            int run,
+            double globalOptima
     ) {
         this.problem = problem;
         this.algorithm = algorithm;
@@ -98,6 +100,7 @@ class Analyze_Optimization_Test implements Runnable {
         this.T = T;
         this.other_params = other_params;
         this.run = run;
+        this.globalOptima = globalOptima;
     }
 
     private void write_output_to_file(String output_dir, String file_name, String results, boolean final_result) {
@@ -223,7 +226,10 @@ class Analyze_Optimization_Test implements Runnable {
                             this.N + "," +
                             this.iterations + "," +
                             this.run + "," +
-                            optimal_value;
+                            ef.getFunctionCallCount() + "," +
+                            optimal_value + "," +
+                            this.globalOptima + "," +
+                            elapsedTime;
             write_output_to_file(this.other_params.get("output_folder"), "final_results.csv", final_result, true);
             String file_name =
                     this.problem + "_" + this.algorithm + "_N_" + this.N +
@@ -254,8 +260,8 @@ public class KnapsackOptimizationTest {
         other_params.put("output_folder","Optimization_Results");
         int num_runs = 10;
 
-        int[] N = new int[] {40};
-        int[] iterations = new int[] {1000};
+        int[] N = new int[] {20, 40, 60, 80, 100};
+        int[] iterations = new int[] {10, 25, 50, 100, 200, 500, 1000, 5000  };
         String[] algorithms = {"SA", "GA", "RHC", "MIMIC"};
 
         for (int i = 0; i < algorithms.length; i++) {
@@ -271,11 +277,15 @@ public class KnapsackOptimizationTest {
                 double[] weights = new double[NUM_ITEMS];
                 double[] volumes = new double[NUM_ITEMS];
                 int[] copies = new int[NUM_ITEMS];
+                double globalOptima = 0;
                 Arrays.fill(copies, COPIES_EACH);
                 for (int k = 0; k < NUM_ITEMS; k++) {
                     weights[k] = random.nextDouble() * MAX_WEIGHT;
                     volumes[k] = random.nextDouble() * MAX_VOLUME;
+                    globalOptima += weights[k];
                 }
+
+                System.out.println("Global optima: " + globalOptima);
 
                 //Knapsack Test
                 HashMap<String, Object> knapsack_params = new HashMap<>();
@@ -301,7 +311,8 @@ public class KnapsackOptimizationTest {
                                 N[j],
                                 N[j]/10,
                                 other_params,
-                                l
+                                l,
+                                globalOptima
                         ).start();
                     }
                 }
